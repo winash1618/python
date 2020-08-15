@@ -1,0 +1,2 @@
+class testproblem():
+    pass
