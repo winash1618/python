@@ -144,20 +144,19 @@ def get_module(file_name):
             print(f"Failed to render scene: {str(e)}")
             sys.exit(2)
     else:
-        print(file_name.replace(".py",""))
+        # os.sep is a \
+        # module_name convert test.py to test
         module_name = file_name.replace(os.sep, ".").replace(".py", "")
-        print(module_name,file_name,os.sep)
+        # spec contains ModuleSpec(name='test', loader=<_frozen_importlib_external.SourceFileLoader object at 0x0000022BB9078CF8>, origin='test.py')
         spec = importlib.util.spec_from_file_location(module_name, file_name)
-        print(spec)
+        # module contains <module 'test' from 'test.py'>
         module = importlib.util.module_from_spec(spec)
-        print(spec.loader.exec_module(module))
+        # i dont know what it does print(spec.loader.exec_module(module))
         spec.loader.exec_module(module)
-        print(module)
         return module
 
 
 def get_configuration(args):
-    print(args.file)
     module = get_module(args.file)
     file_writer_config = {
         # By default, write to file
@@ -171,7 +170,11 @@ def get_configuration(args):
         "file_name": args.file_name,
         "input_file_path": args.file,
     }
+    
     if hasattr(module, "OUTPUT_DIRECTORY"):
+        # if the module or test.py has attribute 
+        # "OUTPUT_DIRICTORY" then we change file_writer_config
+        # ["output_directory"] to module.OUTPUT_DIRECTORY
         file_writer_config["output_directory"] = module.OUTPUT_DIRECTORY
     config = {
         "module": module,
