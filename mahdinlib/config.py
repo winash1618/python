@@ -144,14 +144,20 @@ def get_module(file_name):
             print(f"Failed to render scene: {str(e)}")
             sys.exit(2)
     else:
+        print(file_name.replace(".py",""))
         module_name = file_name.replace(os.sep, ".").replace(".py", "")
+        print(module_name,file_name,os.sep)
         spec = importlib.util.spec_from_file_location(module_name, file_name)
+        print(spec)
         module = importlib.util.module_from_spec(spec)
+        print(spec.loader.exec_module(module))
         spec.loader.exec_module(module)
+        print(module)
         return module
 
 
 def get_configuration(args):
+    print(args.file)
     module = get_module(args.file)
     file_writer_config = {
         # By default, write to file
