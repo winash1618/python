@@ -52,9 +52,16 @@ def initialize_directories(config):
         if folder != "" and not os.path.exists(folder):
             os.makedirs(folder)
 
+CHOOSE_NUMBER_MESSAGE = """
+Choose number corresponding to desired scene/arguments.
+(Use comma separated list for multiple entries)
+Choice(s): """
+INVALID_NUMBER_MESSAGE = "Fine then, if you don't want to give a valid number I'll just quit"
 
 
-
+NO_SCENE_MESSAGE = """
+   There are no scenes inside that module
+"""
 
 PRODUCTION_QUALITY_CAMERA_CONFIG = {
     "pixel_height": 1440,
